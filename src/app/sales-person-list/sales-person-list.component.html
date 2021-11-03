@@ -5,6 +5,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Sales Volume</th>
+            <th>Met Quota?</th>
         </tr>
     </thead>
     <tbody>
@@ -13,6 +14,12 @@
             <td>{{tempSalePerson.lastName}}</td>
             <td>{{tempSalePerson.email}}</td>
             <td>{{tempSalePerson.salesVolume}}</td>
+            <td>
+                <div *ngIf="tempSalePerson.salesVolume >= 20000; else myElseBlock">Yes</div>
+                <ng-template #myElseBlock>No</ng-template>
+<!--                <div *ngIf="!(tempSalePerson.salesVolume >= 20000)">No</div>-->
+
+            </td>
         </tr>
     </tbody>
 
