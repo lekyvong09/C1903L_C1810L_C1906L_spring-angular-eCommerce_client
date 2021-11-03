@@ -9,11 +9,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let tempSalePerson of salesPersonList">
+        <tr *ngFor="let tempSalePerson of salesPersonList" [ngClass]="{'highlight': tempSalePerson.salesVolume >=30000}">
             <td>{{tempSalePerson.firstName}}</td>
             <td>{{tempSalePerson.lastName}}</td>
             <td>{{tempSalePerson.email}}</td>
-            <td>{{tempSalePerson.salesVolume}}</td>
+            <td>{{tempSalePerson.salesVolume | currency:'USD'}}</td>
             <td>
                 <div *ngIf="tempSalePerson.salesVolume >= 20000; else myElseBlock">Yes</div>
                 <ng-template #myElseBlock>No</ng-template>
