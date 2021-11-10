@@ -6,6 +6,15 @@ import { ProductListComponent } from './product-list/product-list.component';
 import {ProductService} from './_service/product.service';
 import {HttpClientModule} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {RouterModule, Routes} from '@angular/router';
+
+
+const routes: Routes = [
+  { path: 'category/:id', component: ProductListComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: '', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200
+  { path: '**', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200/fewkvhbrkenvie
+];
 
 @NgModule({
   declarations: [
@@ -13,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductListComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
     NgbModule

@@ -10,13 +10,16 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar-list">
                     <li>
-                        <a href="#">Comics</a>
+                        <a routerLink="/category/1">Comics</a>
                     </li>
                     <li>
-                        <a href="#">Romantic</a>
+                        <a routerLink="/category/2">Fiction</a>
                     </li>
                     <li>
-                        <a href="#">Programming</a>
+                        <a routerLink="/category/3">Romantic</a>
+                    </li>
+                    <li>
+                        <a routerLink="/category/4">Programming</a>
                     </li>
                 </ul>
             </nav>
@@ -53,7 +56,7 @@
         <!-- END HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
-        <app-product-list></app-product-list>
+        <router-outlet></router-outlet>
         <!-- END MAIN CONTENT-->
 
 
