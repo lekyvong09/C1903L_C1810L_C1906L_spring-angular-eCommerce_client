@@ -103,7 +103,7 @@ a,a:hover{
 .page-wrapper{
     overflow:hidden;
     background:#e5e5e5;
-    padding-bottom:8vh
+    padding-bottom:1vh
 }
 
 .page-container{
@@ -520,7 +520,8 @@ input.au-input.au-input-xl{
  */
 
 .product-box img {
-    width: 150px;
+    height: 250px;
+    width: auto;
 }
 
 .items select {
@@ -841,7 +842,7 @@ footer ul li{
     }
     .page-wrapper{
         background:#e5e5e5;
-        padding-bottom:12vh
+        padding-bottom:1vh
     }
     .main-content{
         padding-top:50px;
