@@ -7,10 +7,18 @@ import {map} from 'rxjs/operators';
 @Injectable({providedIn: 'root'})
 export class ProductService {
 
+  private baseUrl = 'http://localhost:8080/api/';
+
   constructor(private httpClient: HttpClient) { }
 
   public getProductList(): Observable<Product[]> {
-    return this.httpClient.get<GetProductResponse>('http://localhost:8080/api/products').pipe(
+    return this.httpClient.get<GetProductResponse>(`${this.baseUrl}products`).pipe(
+        map(response => response._embedded.products)
+    );
+  }
+
+  public getProductListByCategoryId(theCategoryId: number): Observable<Product[]> {
+    return this.httpClient.get<GetProductResponse>(`${this.baseUrl}products/search/findByCategoryId?id=${theCategoryId}`).pipe(
         map(response => response._embedded.products)
     );
   }
