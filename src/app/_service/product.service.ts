@@ -38,6 +38,11 @@ export class ProductService {
     );
   }
 
+
+  getProduct(productId: number): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.baseUrl}products/${productId}`);
+  }
+
 }
 
 interface GetProductResponse {
