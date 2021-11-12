@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Product} from '../_model/product';
 import {map} from 'rxjs/operators';
+import {ProductCategory} from '../_model/product-category';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -23,10 +24,30 @@ export class ProductService {
     );
   }
 
+
+  getProductCategories(): Observable<ProductCategory[]> {
+    return this.httpClient.get<GetProductCategoryResponse>(`${this.baseUrl}product-category`).pipe(
+        map(response => response._embedded.productCategory)
+    );
+  }
+
+
+  searchProduct(theKeyword: string): Observable<Product[]> {
+    return this.httpClient.get<GetProductResponse>(`${this.baseUrl}products/search/findByNameContaining?name=${theKeyword}`).pipe(
+        map(response => response._embedded.products)
+    );
+  }
+
 }
 
 interface GetProductResponse {
   _embedded: {
     products: Product[];
+  };
+}
+
+interface GetProductCategoryResponse {
+  _embedded: {
+    productCategory: ProductCategory[];
   };
 }
