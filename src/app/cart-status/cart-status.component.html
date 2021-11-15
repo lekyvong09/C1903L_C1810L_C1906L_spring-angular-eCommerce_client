@@ -1,6 +1,23 @@
 <div class="cart-area d-n">
     <a href="shopping-detail.html">
-        <div class="total">19.22 <span> 2</span> </div> <i class="fa fa-shopping-cart"
-                                                           aria-hidden="true"></i>
+        <div class="total">
+
+            <ng-container *ngIf="(cartService.totalPrice$ | async) as displayTotalPrice; else totalPrice0">
+                {{displayTotalPrice | currency:'USD'}}
+            </ng-container>
+            <ng-template #totalPrice0>
+                {{0.00 | currency: 'USD'}}
+            </ng-template>
+
+            <ng-container *ngIf="(cartService.totalQuantity$ | async) as displayTotalQuantity; else totalQuantity0">
+                <span> {{displayTotalQuantity}}</span>
+            </ng-container>
+            <ng-template #totalQuantity0>
+                <span>{{ 0 }}</span>
+            </ng-template>
+
+        </div>
+
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
     </a>
 </div>

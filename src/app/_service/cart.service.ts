@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CartItem} from '../_model/cart-item';
+import {ReplaySubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,10 @@ import {CartItem} from '../_model/cart-item';
 export class CartService {
 
   cartItems: CartItem[] = [];
-  totalPrice: number;
-  totalQuantity: number;
+  totalPrice = new ReplaySubject<number>(1);
+  totalPrice$ = this.totalPrice.asObservable();
+  totalQuantity = new ReplaySubject<number>(1);
+  totalQuantity$ = this.totalQuantity.asObservable();
 
   constructor() { }
 
@@ -40,20 +43,23 @@ export class CartService {
 
 
   private computeCartTotal(): void {
-    this.totalPrice = 0;
-    this.totalQuantity = 0;
+    let totalPriceValue = 0;
+    let totalQuantityValue = 0;
 
     for (const currentCartItem of this.cartItems) {
-      this.totalPrice += currentCartItem.quantity * currentCartItem.unitPrice;
-      this.totalQuantity += currentCartItem.quantity;
+      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
+      totalQuantityValue += currentCartItem.quantity;
     }
+
+    this.totalPrice.next(totalPriceValue);
+    this.totalQuantity.next(totalQuantityValue);
 
     // for logging & testing purpose
     for (const tempCartItem of this.cartItems) {
       const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
       console.log(`name=${tempCartItem.name}, quantity=${tempCartItem.quantity}, unitPrice=${tempCartItem.unitPrice}, subTotal=${subTotalPrice}`);
     }
-    console.log(`totalPrice=${this.totalPrice.toFixed(2)}, totalQUantity=${this.totalQuantity}`);
+    console.log(`totalPrice=${totalPriceValue.toFixed(2)}, totalQuantity=${totalQuantityValue}`);
     console.log('------');
   }
 }
