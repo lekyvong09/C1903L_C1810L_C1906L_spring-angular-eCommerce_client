@@ -11,6 +11,7 @@ import { ProductCategoryMenuComponent } from './product-category-menu/product-ca
 import { SearchComponent } from './search/search.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
+import {CartService} from './_service/cart.service';
 
 
 const routes: Routes = [
@@ -37,7 +38,10 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule
   ],
-  providers: [ProductService],
+  providers: [
+      ProductService,
+      CartService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
