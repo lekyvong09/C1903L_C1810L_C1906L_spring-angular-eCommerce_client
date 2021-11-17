@@ -23,7 +23,7 @@
 
                                 <div class="row no-gutters">
                                     <div class="col">
-                                        <button class="btn btn-outline-primary btn-sm">
+                                        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-outline-primary btn-sm">
                                             <fa-icon [icon]="faPlus"></fa-icon>
                                         </button>
                                     </div>
@@ -33,7 +33,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <button class="btn btn-outline-primary btn-sm">
+                                        <button (click)="decrementQuantity(tempCartItem)" class="btn btn-outline-primary btn-sm">
                                             <fa-icon [icon]="faMinus"></fa-icon>
                                         </button>
                                     </div>
@@ -42,6 +42,10 @@
 
                                 </div>
                             </div>
+
+                            <button (click)="remove(tempCartItem)" class="btn btn-sm btn-primary mt-2">
+                                Remove
+                            </button>
 
                             <p class="mt-2">
                                 Subtotal: {{tempCartItem.quantity * tempCartItem.unitPrice |currency:'USD'}}
