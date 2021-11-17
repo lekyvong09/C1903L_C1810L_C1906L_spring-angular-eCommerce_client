@@ -59,6 +59,8 @@
                             <p>Total Quantity: {{cartService.totalQuantity$ | async}}</p>
                             <p>Shipping: FREE</p>
                             <p>Total Price: {{cartService.totalPrice$ | async | currency: 'USD'}}</p>
+
+                            <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
                         </td>
                     </tr>
                 </table>
