@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CartService} from '../_service/cart.service';
-import {CreditCardFormServiceService} from '../_service/credit-card-form-service.service';
+import {CheckoutFormService} from '../_service/checkout-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -15,7 +15,7 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   constructor(private formBuilder: FormBuilder, public cartService: CartService,
-              private creditCardFormService: CreditCardFormServiceService) { }
+              private checkoutFormService: CheckoutFormService) { }
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -48,8 +48,8 @@ export class CheckoutComponent implements OnInit {
       })
     });
 
-    this.creditCardFormService.getCreditCardYears().subscribe(data => this.creditCardYears = data);
-    this.creditCardFormService.getCreditCardMonths(new Date().getMonth() + 1).subscribe(data => this.creditCardMonths = data);
+    this.checkoutFormService.getCreditCardYears().subscribe(data => this.creditCardYears = data);
+    this.checkoutFormService.getCreditCardMonths(new Date().getMonth() + 1).subscribe(data => this.creditCardMonths = data);
 
   }
 
@@ -79,7 +79,7 @@ export class CheckoutComponent implements OnInit {
       startMonth = 1;
     }
 
-    this.creditCardFormService.getCreditCardMonths(startMonth).subscribe(data => this.creditCardMonths = data);
+    this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(data => this.creditCardMonths = data);
 
   }
 }

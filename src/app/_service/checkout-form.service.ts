@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CreditCardFormServiceService {
+export class CheckoutFormService {
 
   constructor() { }
 
