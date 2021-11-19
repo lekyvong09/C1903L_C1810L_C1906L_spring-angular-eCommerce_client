@@ -16,6 +16,7 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CreditCardFormServiceService} from './_service/credit-card-form-service.service';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
   ],
   providers: [
       ProductService,
-      CartService
+      CartService,
+      CreditCardFormServiceService,
   ],
   bootstrap: [AppComponent]
 })

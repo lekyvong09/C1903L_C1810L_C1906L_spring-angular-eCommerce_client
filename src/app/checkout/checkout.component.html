@@ -182,7 +182,10 @@
                         </div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="cardType" type="text">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Master</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -222,28 +225,60 @@
 
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Expiration Month</label>
+                            <label>Expiration Year</label>
                         </div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="expirationMonth" type="text">
+                                <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
+                                    <option *ngFor="let year of creditCardYears">
+                                        {{ year }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-2">
-                            <label>Expiration Year</label>
+                            <label>Expiration Month</label>
                         </div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="expirationYear" type="text">
+                                <select formControlName="expirationMonth">
+                                    <option *ngFor="let month of creditCardMonths">
+                                        {{ month }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End CreditCard Section -->
 
+                <!-- Order details -->
+                <div class="form-area">
+                    <h3>Review your order</h3>
+                    <ng-container *ngIf="(cartService.totalQuantity$ | async) as displayTotalQuantity; else totalQuantity0">
+                        <p>Total Quantity: {{displayTotalQuantity}}</p>
+                    </ng-container>
+                    <ng-template #totalQuantity0>
+                        <p>Total Quantity: {{ 0 }}</p>
+                    </ng-template>
+
+                    <p>Shipping: FREE</p>
+
+                    <ng-container *ngIf="(cartService.totalPrice$ | async) as displayTotalPrice; else totalPrice0">
+                        <p>Total Price: {{displayTotalPrice | currency:'USD'}}</p>
+                    </ng-container>
+                    <ng-template #totalPrice0>
+                        <p>Total Price: {{0.00 | currency: 'USD'}}</p>
+                    </ng-template>
+
+
+                </div>
+                <!-- End Order details -->
+
+                <!-- Submit -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-info">Purchase</button>
                 </div>
