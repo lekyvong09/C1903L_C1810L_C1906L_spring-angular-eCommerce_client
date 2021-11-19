@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CartService} from '../_service/cart.service';
 import {CheckoutFormService} from '../_service/checkout-form.service';
+import {Country} from '../_model/country';
+import {State} from '../_model/state';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +15,10 @@ export class CheckoutComponent implements OnInit {
 
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
+
+  countries: Country[] = [];
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder, public cartService: CartService,
               private checkoutFormService: CheckoutFormService) { }
@@ -51,6 +57,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutFormService.getCreditCardYears().subscribe(data => this.creditCardYears = data);
     this.checkoutFormService.getCreditCardMonths(new Date().getMonth() + 1).subscribe(data => this.creditCardMonths = data);
 
+    this.checkoutFormService.getCountries().subscribe(data => this.countries = data);
   }
 
   onSubmit(): void {
@@ -82,4 +89,25 @@ export class CheckoutComponent implements OnInit {
     this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(data => this.creditCardMonths = data);
 
   }
+
+
+  getStates(formGroupName: string): void {
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const countryCode = formGroup.value.country.code;
+
+    this.checkoutFormService.getStates(countryCode).subscribe(
+        data => {
+          if (formGroupName === 'shippingAddress') {
+            this.shippingAddressStates = data;
+          } else {
+            this.billingAddressStates = data;
+          }
+
+          formGroup.get('state').setValue(data[0]);
+        }
+    );
+
+}
+
 }
