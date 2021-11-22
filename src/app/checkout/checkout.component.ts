@@ -46,10 +46,10 @@ export class CheckoutComponent implements OnInit {
         zipCode: ['']
       }),
       creditCard: this.formBuilder.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
+        cardType: ['', Validators.required],
+        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutValidator.notOnlyWhitespace]),
+        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
       })
@@ -62,6 +62,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
+
     console.log(this.checkoutFormGroup.get('customer').value);
   }
 
@@ -113,16 +117,13 @@ export class CheckoutComponent implements OnInit {
   }
 
 
-  get firstName(): AbstractControl {
-    return this.checkoutFormGroup.get('customer.firstName');
-  }
+  get firstName(): AbstractControl { return this.checkoutFormGroup.get('customer.firstName'); }
+  get lastName(): AbstractControl { return this.checkoutFormGroup.get('customer.lastName'); }
+  get email(): AbstractControl { return this.checkoutFormGroup.get('customer.email'); }
 
-  get lastName(): AbstractControl {
-    return this.checkoutFormGroup.get('customer.lastName');
-  }
-
-  get email(): AbstractControl {
-    return this.checkoutFormGroup.get('customer.email');
-  }
+  get cardType(): AbstractControl { return this.checkoutFormGroup.get('creditCard.cardType'); }
+  get nameOnCard(): AbstractControl { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
+  get cardNumber(): AbstractControl { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
+  get securityCode(): AbstractControl { return this.checkoutFormGroup.get('creditCard.securityCode'); }
 
 }
