@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CheckoutFormService} from './_service/checkout-form.service';
+import {CheckoutService} from './_service/checkout.service';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
       ProductService,
       CartService,
       CheckoutFormService,
+      CheckoutService,
   ],
   bootstrap: [AppComponent]
 })

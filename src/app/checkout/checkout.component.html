@@ -330,22 +330,10 @@
                 <!-- Order details -->
                 <div class="form-area">
                     <h3>Review your order</h3>
-                    <ng-container *ngIf="(cartService.totalQuantity$ | async) as displayTotalQuantity; else totalQuantity0">
-                        <p>Total Quantity: {{displayTotalQuantity}}</p>
-                    </ng-container>
-                    <ng-template #totalQuantity0>
-                        <p>Total Quantity: {{ 0 }}</p>
-                    </ng-template>
 
+                    <p>Total Quantity: {{totalQuantity}}</p>
                     <p>Shipping: FREE</p>
-
-                    <ng-container *ngIf="(cartService.totalPrice$ | async) as displayTotalPrice; else totalPrice0">
-                        <p>Total Price: {{displayTotalPrice | currency:'USD'}}</p>
-                    </ng-container>
-                    <ng-template #totalPrice0>
-                        <p>Total Price: {{0.00 | currency: 'USD'}}</p>
-                    </ng-template>
-
+                    <p>Total Price: {{totalPrice | currency:'USD'}}</p>
 
                 </div>
                 <!-- End Order details -->
