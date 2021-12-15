@@ -18,9 +18,12 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CheckoutFormService} from './_service/checkout-form.service';
 import {CheckoutService} from './_service/checkout.service';
+import { LoginComponent } from './login/login.component';
+import { LoginStatusComponent } from './login-status/login-status.component';
 
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
@@ -40,7 +43,9 @@ const routes: Routes = [
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginComponent,
+    LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
