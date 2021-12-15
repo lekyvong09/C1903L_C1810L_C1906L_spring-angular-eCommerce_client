@@ -20,6 +20,8 @@ import {CheckoutFormService} from './_service/checkout-form.service';
 import {CheckoutService} from './_service/checkout.service';
 import { LoginComponent } from './login/login.component';
 import { LoginStatusComponent } from './login-status/login-status.component';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 const routes: Routes = [
@@ -54,7 +56,9 @@ const routes: Routes = [
     NgbModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({timeOut: 5000, positionClass: 'toast-bottom-right', preventDuplicates: true}),
   ],
   providers: [
       ProductService,
