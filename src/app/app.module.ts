@@ -24,6 +24,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
+import {AuthenticationService} from './_service/authentication.service';
 
 
 const routes: Routes = [
@@ -71,6 +72,7 @@ const routes: Routes = [
       CartService,
       CheckoutFormService,
       CheckoutService,
+      AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })
