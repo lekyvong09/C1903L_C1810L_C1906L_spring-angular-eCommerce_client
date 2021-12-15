@@ -22,9 +22,13 @@ import { LoginComponent } from './login/login.component';
 import { LoginStatusComponent } from './login-status/login-status.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RegisterComponent } from './register/register.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
+  { path: 'user/management', component: UserComponent },
   { path: 'login', component: LoginComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'cart-details', component: CartDetailsComponent },
@@ -47,7 +51,9 @@ const routes: Routes = [
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    RegisterComponent,
+    UserComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
