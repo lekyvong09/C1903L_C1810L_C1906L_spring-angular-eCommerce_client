@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    if (this.isValidRequestForInterceptor(request) && this.isValidGetRequestForInterceptor) {
+    if (this.isValidRequestForInterceptor(request) && this.isValidGetRequestForInterceptor(request)) {
       this.authenticationService.loadToken();
       const token = this.authenticationService.getToken();
 
@@ -63,7 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const position = request.url.indexOf(positionIndicator);
     if (position > 0) {
       const destination = request.url.substr(position + positionIndicator.length);
-      for (const address of this.validRequestForNotAddingToken) {
+      for (const address of this.validGetRequestForNotAddingToken) {
         if (new RegExp(address).test(destination) && request.method === 'GET') {
           return false;
         }
