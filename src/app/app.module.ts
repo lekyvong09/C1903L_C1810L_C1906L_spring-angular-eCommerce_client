@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import {ProductService} from './_service/product.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule, Routes} from '@angular/router';
 import { ProductCategoryMenuComponent } from './product-category-menu/product-category-menu.component';
@@ -25,6 +25,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import {AuthenticationService} from './_service/authentication.service';
+import {AuthInterceptor} from './_interceptors/auth.interceptor';
 
 
 const routes: Routes = [
@@ -73,6 +74,7 @@ const routes: Routes = [
       CheckoutFormService,
       CheckoutService,
       AuthenticationService,
+      {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
