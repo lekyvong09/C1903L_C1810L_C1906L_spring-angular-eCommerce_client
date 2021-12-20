@@ -66,4 +66,8 @@ export class AuthenticationService {
     localStorage.removeItem('users');
   }
 
+  public getLoggedInUsername(): string {
+    return this.loggedInUsername;
+  }
+
 }

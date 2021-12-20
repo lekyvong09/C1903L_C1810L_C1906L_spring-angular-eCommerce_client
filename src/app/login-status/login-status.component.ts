@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../_service/authentication.service';
 
 @Component({
   selector: 'app-login-status',
@@ -10,15 +11,13 @@ export class LoginStatusComponent implements OnInit {
   isAuthenticated = false;
   userFullName: string;
 
-  constructor() { }
+  constructor(public authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.isAuthenticated = true;
-    this.userFullName = 'Test User';
   }
 
   logout(): void {
-    this.isAuthenticated = false;
+    this.authenticationService.logOut();
   }
 
 }
