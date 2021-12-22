@@ -1,1 +1,70 @@
-<p>register works!</p>
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+            <div class="container" style="margin-top: 30px;">
+                <div class="d-flex justify-content-center h-50">
+                    <div class="user_card">
+                        <div class="d-flex justify-content-center">
+                            <div style="margin-top: 10px; margin-bottom: -90px">
+                                <h3>Registration</h3>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center form_container">
+                            <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="firstName" placeholder="First Name" ngModel #firstNameInput="ngModel">
+                                </div>
+                                <span class="help-block" style="color: red" *ngIf="firstNameInput.invalid && firstNameInput.touched">Please enter your First Name</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="lastName" placeholder="Last Name" ngModel #lastNameInput="ngModel">
+                                </div>
+                                <span class="help-block" style="color: red" *ngIf="lastNameInput.invalid && lastNameInput.touched">Please enter your Last Name</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><fa-icon [icon]="faIdCard"></fa-icon></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="username" placeholder="username" ngModel #usernameInput="ngModel">
+                                </div>
+                                <span class="help-block" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter your username</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="email" placeholder="email" ngModel #emailInput="ngModel">
+                                </div>
+                                <span class="help-block" style="color: red" *ngIf="emailInput.invalid && usernameInput.touched">Please enter your email</span>
+
+                                <div class="d-flex justify-content-center mt-3 login_container">
+                                    <button [disabled]="registerForm.invalid || showLoading" class="btn login_btn" type="submit" name="button">
+                                        <fa-icon *ngIf="showLoading" [icon]="faSpinner" [spin]="true"></fa-icon>
+                                        <span *ngIf="showLoading">Loading...</span>
+                                        <span *ngIf="!showLoading">Register</span>
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-center links">
+                                Already have an account? <a routerLink="/login" class="ml-2" style="color: #2C3E50;"> Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
