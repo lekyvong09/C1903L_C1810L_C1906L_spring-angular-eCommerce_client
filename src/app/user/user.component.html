@@ -22,47 +22,62 @@
                                 <fa-icon [icon]="faSync" [spin]="false"></fa-icon>
                             </button>
                         </div>
-
-                        <table class="table table-hover">
-                            <thead class="table-borderless">
-                                <tr class="text-center">
-                                    <th>Photo</th>
-                                    <th>User ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let appUser of users">
-                                <tr class="text-center">
-                                    <td>
-                                        <img height="40" width="40" class="rounded-circle img-fluid img-thumbnail" src="{{appUser?.profileImageUrl}}" alt="{{appUser?.username}}">
-                                    </td>
-                                    <td>{{appUser?.userId}}</td>
-                                    <td>{{appUser?.firstName}}</td>
-                                    <td>{{appUser?.lastName}}</td>
-                                    <td>{{appUser?.username}}</td>
-                                    <td>{{appUser?.email}}</td>
-                                    <td>
-                                        <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
-                                        <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-outline-info"><fa-icon [icon]="faEdit"></fa-icon></button>
-                                            <button class="btn btn-outline-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-
+                    <table class="table table-hover">
+                        <thead class="table-borderless">
+                            <tr class="text-center">
+                                <th>Photo</th>
+                                <th>User ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let appUser of users">
+                            <tr class="text-center">
+                                <td>
+                                    <img height="40" width="40" class="rounded-circle img-fluid img-thumbnail" src="{{appUser?.profileImageUrl}}" alt="{{appUser?.username}}">
+                                </td>
+                                <td>{{appUser?.userId}}</td>
+                                <td>{{appUser?.firstName}}</td>
+                                <td>{{appUser?.lastName}}</td>
+                                <td>{{appUser?.username}}</td>
+                                <td>{{appUser?.email}}</td>
+                                <td>
+                                    <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
+                                    <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-info"><fa-icon [icon]="faEdit"></fa-icon></button>
+                                        <button class="btn btn-outline-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <!-- End user table -->
 
+                <button class="btn btn-primary" id="openUserInfo" (click)="openUserInfo(viewUserModal)"></button>
+
+
+                <!-- Modal user info -->
+                <ng-template #viewUserModal let-modalUserInfo>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center">Ray Le</h5>
+                        <button class="close" (click)="modalUserInfo.dismiss()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" (click)="modalUserInfo.close()">Close</button>
+                    </div>
+                </ng-template>
 
             </div>
 
