@@ -26,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import {AuthenticationService} from './_service/authentication.service';
 import {AuthInterceptor} from './_interceptors/auth.interceptor';
+import {UserService} from './_service/user.service';
 
 
 const routes: Routes = [
@@ -75,6 +76,7 @@ const routes: Routes = [
       CheckoutService,
       AuthenticationService,
       {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+      UserService
   ],
   bootstrap: [AppComponent]
 })

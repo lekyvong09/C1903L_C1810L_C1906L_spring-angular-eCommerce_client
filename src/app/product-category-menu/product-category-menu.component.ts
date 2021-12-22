@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../_service/product.service';
 import {ProductCategory} from '../_model/product-category';
+import {AuthenticationService} from '../_service/authentication.service';
 
 @Component({
   selector: 'app-product-category-menu',
@@ -11,7 +12,7 @@ export class ProductCategoryMenuComponent implements OnInit {
 
   productCategories: ProductCategory[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, public authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.listProductCategories();
