@@ -22,23 +22,34 @@ export class UserComponent implements OnInit, OnDestroy {
   showLoading: boolean;
   private subscriptions: Subscription[] = [];
 
+  thePageNumber: number;
+  thePageSize: number;
+  theTotalElements: number;
+
   constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.thePageNumber = 1;
+    this.thePageSize = 4;
+    this.theTotalElements = 0;
     this.getUsers(true);
   }
 
   getUsers(showNotification: boolean): void {
     this.showLoading = true;
-    this.subscriptions.push(this.userService.getUsers()
+    this.subscriptions.push(this.userService.getUsers(this.thePageNumber - 1, this.thePageSize)
         .pipe(finalize(() => this.showLoading = false))
-        .subscribe(
-        (response: User[]) => {
-          this.userService.addUsersToLocalCache(response);
-          this.users = response;
+        .subscribe(data => {
+          this.userService.addUsersToLocalCache(data.users.content);
+          this.users = data.users.content;
           this.users.forEach(user => user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', '));
+
+          this.thePageNumber = data.page.number + 1;
+          this.thePageSize = data.page.size;
+          this.theTotalElements = data.page.totalElements;
+
           if (showNotification) {
-            this.toastr.success(`${response.length} users loaded successfully`);
+            this.toastr.success(`${data.users.content.length} users loaded successfully`);
           }
         }, error => this.toastr.error(error.error.message)
     ));

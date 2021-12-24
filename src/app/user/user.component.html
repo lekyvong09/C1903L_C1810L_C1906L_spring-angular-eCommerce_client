@@ -143,7 +143,19 @@
                         <button class="btn btn-secondary" (click)="modalUserInfo.close()">Close</button>
                     </div>
                 </ng-template>
+                <!-- End Modal user info -->
 
+            </div>
+
+            <div class="row float-right">
+                <ngb-pagination
+                    [(page)]="thePageNumber"
+                    [pageSize]="thePageSize"
+                    [collectionSize]="theTotalElements"
+                    [boundaryLinks]="true"
+                    (pageChange)="getUsers(false)"
+                >
+                </ngb-pagination>
             </div>
 
         </div>

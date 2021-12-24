@@ -13,8 +13,8 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.baseUrl}user/list`);
+  public getUsers(thePage: number, thePageSize: number): Observable<GetResponseUser> {
+    return this.httpClient.get<GetResponseUser>(`${this.baseUrl}user/list?page=${thePage}&size=${thePageSize}`);
   }
 
   public addUser(formData: FormData): Observable<User> {
@@ -65,4 +65,17 @@ export class UserService {
     // role....
     return formData;
   }
+
+}
+
+interface GetResponseUser {
+  users: {
+    content: User[];
+  };
+  page: {
+    number: number,
+    totalElements: number,
+    totalPages: number,
+    size: number
+  };
 }
