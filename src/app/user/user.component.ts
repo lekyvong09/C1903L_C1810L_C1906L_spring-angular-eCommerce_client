@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {User} from '../_model/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -24,17 +25,23 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsers(true);
   }
 
-  getUsers(): void {
-    this.userService.getUsers().subscribe(
+  getUsers(showNotification: boolean): void {
+    this.showLoading = true;
+    this.subscriptions.push(this.userService.getUsers()
+        .pipe(finalize(() => this.showLoading = false))
+        .subscribe(
         (response: User[]) => {
           this.userService.addUsersToLocalCache(response);
           this.users = response;
           this.users.forEach(user => user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', '));
+          if (showNotification) {
+            this.toastr.success(`${response.length} users loaded successfully`);
+          }
         }, error => this.toastr.error(error.error.message)
-    );
+    ));
   }
 
   openUserInfo(content): void {

@@ -17,9 +17,9 @@
                             </button>
                         </div>
                         <div class="btn-group">
-                            <button (click)="getUsers()" class="btn btn-info" type="button">
-                                <fa-icon [icon]="faSync" [spin]="true"></fa-icon>
-                                <fa-icon [icon]="faSync" [spin]="false"></fa-icon>
+                            <button (click)="getUsers(false)" class="btn btn-info" type="button">
+                                <fa-icon *ngIf="showLoading" [icon]="faSync" [spin]="true"></fa-icon>
+                                <fa-icon *ngIf="!showLoading" [icon]="faSync" [spin]="false"></fa-icon>
                             </button>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 </div>
                 <!-- End user table -->
 
-                <button class="btn btn-primary" id="openUserInfo" (click)="openUserInfo(viewUserModal)"></button>
+                <button [hidden]="true" type="button" class="btn btn-primary" id="openUserInfo" (click)="openUserInfo(viewUserModal)"></button>
 
 
                 <!-- Modal user info -->
