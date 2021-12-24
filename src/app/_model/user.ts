@@ -16,6 +16,7 @@ export class User {
     active: boolean;
     notLocked: boolean;
     roles: Role[];
+    rolesToDisplay: string;
     authorities: Authority[];
 
 

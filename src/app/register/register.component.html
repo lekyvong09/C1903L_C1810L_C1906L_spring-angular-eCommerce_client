@@ -17,7 +17,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
                                     </div>
-                                    <input type="text" class="form-control" name="firstName" placeholder="First Name" ngModel #firstNameInput="ngModel">
+                                    <input type="text" class="form-control" name="firstName" placeholder="First Name" ngModel #firstNameInput="ngModel" required>
                                 </div>
                                 <span class="help-block" style="color: red" *ngIf="firstNameInput.invalid && firstNameInput.touched">Please enter your First Name</span>
 
@@ -25,7 +25,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
                                     </div>
-                                    <input type="text" class="form-control" name="lastName" placeholder="Last Name" ngModel #lastNameInput="ngModel">
+                                    <input type="text" class="form-control" name="lastName" placeholder="Last Name" ngModel #lastNameInput="ngModel" required>
                                 </div>
                                 <span class="help-block" style="color: red" *ngIf="lastNameInput.invalid && lastNameInput.touched">Please enter your Last Name</span>
 
@@ -33,7 +33,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text"><fa-icon [icon]="faIdCard"></fa-icon></span>
                                     </div>
-                                    <input type="text" class="form-control" name="username" placeholder="username" ngModel #usernameInput="ngModel">
+                                    <input type="text" class="form-control" name="username" placeholder="username" ngModel #usernameInput="ngModel" required>
                                 </div>
                                 <span class="help-block" style="color: red" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter your username</span>
 
@@ -41,7 +41,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon></span>
                                     </div>
-                                    <input type="text" class="form-control" name="email" placeholder="email" ngModel #emailInput="ngModel">
+                                    <input type="text" class="form-control" name="email" placeholder="email" ngModel #emailInput="ngModel" required>
                                 </div>
                                 <span class="help-block" style="color: red" *ngIf="emailInput.invalid && usernameInput.touched">Please enter your email</span>
 

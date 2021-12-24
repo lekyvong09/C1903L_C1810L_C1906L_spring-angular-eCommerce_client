@@ -41,6 +41,7 @@ export class UserService {
   }
 
   public addUsersToLocalCache(users: User[]): void {
+    users.forEach(user => user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', '));
     localStorage.setItem('users', JSON.stringify(users));
   }
 

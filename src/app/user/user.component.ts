@@ -17,6 +17,7 @@ export class UserComponent implements OnInit, OnDestroy {
   faIdBadge = faIdBadge; faEnvelope = faEnvelope; faShieldAlt = faShieldAlt; faSignInAlt = faSignInAlt
 
   users: User[];
+  selectedUser: User;
   showLoading: boolean;
   private subscriptions: Subscription[] = [];
 
@@ -31,6 +32,7 @@ export class UserComponent implements OnInit, OnDestroy {
         (response: User[]) => {
           this.userService.addUsersToLocalCache(response);
           this.users = response;
+          this.users.forEach(user => user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', '));
         }, error => this.toastr.error(error.error.message)
     );
   }
@@ -39,6 +41,11 @@ export class UserComponent implements OnInit, OnDestroy {
     this.modalService.open(content).result.then(
         (resultonFulfilled) => console.log(resultonFulfilled ? resultonFulfilled : 'save'),
         (reasonOnReject) => console.log(reasonOnReject ? reasonOnReject : 'cancel'));
+  }
+
+  onSelectUser(user: User): void {
+    this.selectedUser = user;
+    document.getElementById('openUserInfo').click();
   }
 
   ngOnDestroy(): void {

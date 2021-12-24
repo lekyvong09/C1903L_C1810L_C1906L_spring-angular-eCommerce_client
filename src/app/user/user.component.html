@@ -38,15 +38,15 @@
                         </thead>
                         <tbody *ngFor="let appUser of users">
                             <tr class="text-center">
-                                <td>
+                                <td (click)="onSelectUser(appUser)">
                                     <img height="40" width="40" class="rounded-circle img-fluid img-thumbnail" src="{{appUser?.profileImageUrl}}" alt="{{appUser?.username}}">
                                 </td>
-                                <td>{{appUser?.userId}}</td>
-                                <td>{{appUser?.firstName}}</td>
-                                <td>{{appUser?.lastName}}</td>
-                                <td>{{appUser?.username}}</td>
-                                <td>{{appUser?.email}}</td>
-                                <td>
+                                <td (click)="onSelectUser(appUser)">{{appUser?.userId}}</td>
+                                <td (click)="onSelectUser(appUser)">{{appUser?.firstName}}</td>
+                                <td (click)="onSelectUser(appUser)">{{appUser?.lastName}}</td>
+                                <td (click)="onSelectUser(appUser)">{{appUser?.username}}</td>
+                                <td (click)="onSelectUser(appUser)">{{appUser?.email}}</td>
+                                <td (click)="onSelectUser(appUser)">
                                     <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
                                     <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
                                 </td>
@@ -68,12 +68,77 @@
                 <!-- Modal user info -->
                 <ng-template #viewUserModal let-modalUserInfo>
                     <div class="modal-header">
-                        <h5 class="modal-title text-center">Ray Le</h5>
+                        <h5 class="modal-title text-center">{{selectedUser.firstName}} {{selectedUser.lastName}}</h5>
                         <button class="close" (click)="modalUserInfo.dismiss()" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body"></div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto">
+                                            <div class="mx-auto" style="width: 120px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded">
+                                                    <img src="{{selectedUser.profileImageUrl}}" alt="{{selectedUser.firstName}}" class="rounded">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between">
+                                            <div class="text-center text-sm-left mb-sm-0">
+                                                <h6 class="pt-sm-2 pb-1 mb-0 text-nowrap">Ray Le</h6>
+                                                <p class="mb-1">{{selectedUser.firstName}}</p>
+                                                <div>Status:
+                                                    <span [hidden]="!selectedUser?.active" class="badge badge-success">Active</span>
+                                                    <span [hidden]="selectedUser?.active" class="badge badge-danger">Inactive</span>
+                                                </div>
+                                                <div class="text-muted"><small>Last Login: {{
+                                                    !selectedUser.lastLoginDateDisplay ?
+                                                        'Have not login'
+                                                        : selectedUser.lastLoginDateDisplay | date: 'mediumDate'}}</small></div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <div class="text-muted"><small>{{selectedUser.joinDate | date: 'mediumDate'}}</small></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"></li>
+                                    <li class="list-group-item">
+                                        <fa-icon [icon]="faIdBadge" class="float-right"></fa-icon>{{selectedUser.userId}}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <fa-icon [icon]="faEnvelope" class="float-right"></fa-icon>{{selectedUser.email}}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <fa-icon [icon]="faShieldAlt" class="float-right"></fa-icon>{{selectedUser.rolesToDisplay}}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <fa-icon [icon]="faSignInAlt" class="float-right"></fa-icon>{{
+                                            !selectedUser.lastLoginDateDisplay ?
+                                                'Have not login'
+                                                : selectedUser.lastLoginDateDisplay | date: 'mediumDate'
+                                        }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span [hidden]="selectedUser?.notLocked">
+                                            <fa-icon [icon]="faLock" class="float-right" style="color: red"></fa-icon>
+                                            Account Locked
+                                        </span>
+                                        <span [hidden]="!selectedUser?.notLocked">
+                                            <fa-icon [icon]="faUnlock" class="float-right" style="color: green"></fa-icon>
+                                            Account Unlocked
+                                        </span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" (click)="modalUserInfo.close()">Close</button>
                     </div>
