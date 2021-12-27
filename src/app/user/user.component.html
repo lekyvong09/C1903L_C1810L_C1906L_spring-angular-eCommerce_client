@@ -12,7 +12,7 @@
                             <form class="form-inline my-2 my-lg-0 justify-content-center">
                                 <input type="search" class="form-control mr-sm-2" placeholder="Search Users..." name="searchTerm">
                             </form>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+                            <button class="btn btn-info" (click)="openModal(addUserModal)" type="button">
                                 <fa-icon [icon]="faPlus"></fa-icon>New User
                             </button>
                         </div>
@@ -62,7 +62,7 @@
                 </div>
                 <!-- End user table -->
 
-                <button [hidden]="true" type="button" class="btn btn-primary" id="openUserInfo" (click)="openUserInfo(viewUserModal)"></button>
+                <button [hidden]="true" type="button" class="btn btn-primary" id="openUserInfo" (click)="openModal(viewUserModal)"></button>
 
 
                 <!-- Modal user info -->
@@ -144,6 +144,83 @@
                     </div>
                 </ng-template>
                 <!-- End Modal user info -->
+
+
+                <!-- Modal add user -->
+                <ng-template #addUserModal let-modalAddUser>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center">New User</h5>
+                        <button type="button" class="close" (click)="modalAddUser.dismiss()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <form #newUserForm="ngForm" (ngSubmit)="onAddNewUser(newUserForm)">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" name="firstName" id="firstName" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" name="lastName" id="lastName" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" id="username" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="email" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="authority">Roles</label>
+                                    <select multiple name="rolesInput" id="authority" required ngModel="ROLE_USER_READ" class="form-control">
+                                        <option value="ROLE_USER_READ">USER_READ</option>
+                                        <option value="ROLE_USER_EDIT">USER_EDIT</option>
+                                        <option value="ROLE_USER_CREATE">USER_CREATE</option>
+                                        <option value="ROLE_USER_DELETE">USER_DELETE</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Profile Picture </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" accept="image/*" (change)="onProfileImageChange($event)"
+                                               name="profileImage" class="custom-file-input">
+                                        <label class="custom-file-label">
+                                            <span [hidden]="true">fileName</span>
+                                            <span [hidden]="false">Choose File</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="active" ngModel class="form-check-input" >
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="notLocked" ngModel class="form-check-input">
+                                            Unlocked
+                                        </label>
+                                    </div>
+                                </fieldset>
+                                <!-- Hide the submit button in order to use the button at the modal footer -->
+                                <button type="submit" style="display: none;" id="new-user-save"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="modalAddUser.close()" id="new-user-close">Close</button>
+                        <button type="button" (click)="saveNewUser()" [disabled]="newUserForm.invalid" class="btn btn-primary">Save changes</button>
+                    </div>
+                </ng-template>
+                <!-- End Modal add user -->
+
 
             </div>
 

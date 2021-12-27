@@ -62,7 +62,7 @@ export class UserService {
     formData.append('isActive', JSON.stringify(user.active));
     formData.append('isNonLocked', JSON.stringify(user.notLocked));
     formData.append('profileImage', profileImage);
-    // role....
+    user.rolesInput.forEach(tempRole => formData.append('role', tempRole));
     return formData;
   }
 

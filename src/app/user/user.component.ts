@@ -7,6 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 import {User} from '../_model/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {finalize} from 'rxjs/operators';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -25,6 +26,9 @@ export class UserComponent implements OnInit, OnDestroy {
   thePageNumber: number;
   thePageSize: number;
   theTotalElements: number;
+
+  uploadFileName: string;
+  profileImage: File;
 
   constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal) { }
 
@@ -55,7 +59,7 @@ export class UserComponent implements OnInit, OnDestroy {
     ));
   }
 
-  openUserInfo(content): void {
+  openModal(content): void {
     this.modalService.open(content).result.then(
         (resultonFulfilled) => console.log(resultonFulfilled ? resultonFulfilled : 'save'),
         (reasonOnReject) => console.log(reasonOnReject ? reasonOnReject : 'cancel'));
@@ -64,6 +68,34 @@ export class UserComponent implements OnInit, OnDestroy {
   onSelectUser(user: User): void {
     this.selectedUser = user;
     document.getElementById('openUserInfo').click();
+  }
+
+  onAddNewUser(newUserForm: NgForm): void {
+    // console.log(newUserForm.value);
+    const formData = this.userService.createUserFormDate(null, newUserForm.value, this.profileImage);
+    this.subscriptions.push(this.userService.addUser(formData).subscribe(
+        response => {
+          console.log(response);
+          document.getElementById('new-user-close').click();
+          this.getUsers(false);
+          this.uploadFileName = null;
+          this.profileImage = null;
+          newUserForm.reset();
+          this.toastr.success(`${response.firstName} ${response.lastName} has been added successfully`);
+        }, error => {
+          this.toastr.error(error.error.message);
+        }
+    ));
+  }
+
+  onProfileImageChange(event: any): void {
+    this.uploadFileName = event.target.files[0].name;
+    this.profileImage = event.target.files[0];
+    console.log(event);
+  }
+
+  saveNewUser(): void {
+    document.getElementById('new-user-save').click();
   }
 
   ngOnDestroy(): void {
