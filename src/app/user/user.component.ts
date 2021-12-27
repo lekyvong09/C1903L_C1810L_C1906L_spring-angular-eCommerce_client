@@ -98,6 +98,26 @@ export class UserComponent implements OnInit, OnDestroy {
     document.getElementById('new-user-save').click();
   }
 
+    searchUserWithJavascript(ngForm: NgForm): void {
+        console.log(ngForm.value.searchTerm);
+        const result: User[] = [];
+        for (const user of this.userService.getUsersFromLocalCache()) {
+            if (user.firstName.toLowerCase().indexOf(ngForm.value.searchTerm.toLowerCase()) !== -1 ||
+                user.lastName.toLowerCase().indexOf(ngForm.value.searchTerm.toLowerCase()) !== -1 ||
+                user.username.toLowerCase().indexOf(ngForm.value.searchTerm.toLowerCase()) !== -1 ||
+                user.userId.toLowerCase().indexOf(ngForm.value.searchTerm.toLowerCase()) !== -1 ||
+                user.email.toLowerCase().indexOf(ngForm.value.searchTerm.toLowerCase()) !== -1 )
+            {
+                result.push(user);
+            }
+        }
+        this.users = result;
+
+        if (result.length === 0  || !ngForm.value.searchTerm) {
+            this.users = this.userService.getUsersFromLocalCache();
+        }
+    }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
