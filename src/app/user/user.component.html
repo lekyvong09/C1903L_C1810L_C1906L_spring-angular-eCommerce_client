@@ -53,7 +53,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-outline-info"><fa-icon [icon]="faEdit"></fa-icon></button>
+                                        <button class="btn btn-outline-info" (click)="onEditUser(appUser)">
+                                            <fa-icon [icon]="faEdit"></fa-icon>
+                                        </button>
                                         <button class="btn btn-outline-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
                                     </div>
                                 </td>
@@ -64,6 +66,7 @@
                 <!-- End user table -->
 
                 <button [hidden]="true" type="button" class="btn btn-primary" id="openUserInfo" (click)="openModal(viewUserModal)"></button>
+                <button [hidden]="true" type="button" class="btn btn-primary" id="openUserEdit" (click)="openModal(editUserModal)"></button>
 
 
                 <!-- Modal user info -->
@@ -221,6 +224,81 @@
                     </div>
                 </ng-template>
                 <!-- End Modal add user -->
+
+                <!-- Modal edit user -->
+                <ng-template #editUserModal let-modalEditUser>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center">Edit User</h5>
+                        <button type="button" class="close" (click)="modalEditUser.dismiss()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <form #editUserForm="ngForm" (ngSubmit)="submitEditUser(editUserForm)">
+                                <div class="form-group">
+                                    <label for="editUserFirstName">First Name</label>
+                                    <input type="text" name="firstName" id="editUserFirstName" required [(ngModel)]="editUser.firstName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editUserLastName">Last Name</label>
+                                    <input type="text" name="lastName" id="editUserLastName" required [(ngModel)]="editUser.lastName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editUserUsername">Username</label>
+                                    <input type="text" name="username" id="editUserUsername" required [(ngModel)]="editUser.username" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editUserEmail">Email</label>
+                                    <input type="email" name="email" id="editUserEmail" required [(ngModel)]="editUser.email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editUserAuthority">Roles</label>
+                                    <select multiple name="rolesInput" id="editUserAuthority" required [(ngModel)]="editUser.rolesInput" class="form-control">
+                                        <option value="ROLE_USER_READ">USER_READ</option>
+                                        <option value="ROLE_USER_EDIT">USER_EDIT</option>
+                                        <option value="ROLE_USER_CREATE">USER_CREATE</option>
+                                        <option value="ROLE_USER_DELETE">USER_DELETE</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Profile Picture </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" accept="image/*" (change)="onProfileImageChange($event)"
+                                               name="profileImage" class="custom-file-input">
+                                        <label class="custom-file-label">
+                                            <span [hidden]="!uploadFileName">{{uploadFileName}}</span>
+                                            <span [hidden]="uploadFileName">Choose File</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="active" [(ngModel)]="editUser.active" class="form-check-input" >
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="notLocked" [(ngModel)]="editUser.notLocked" class="form-check-input">
+                                            Unlocked
+                                        </label>
+                                    </div>
+                                </fieldset>
+                                <!-- Hide the submit button in order to use the button at the modal footer -->
+                                <button type="submit" style="display: none;" id="edit-user-save"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="modalEditUser.close()" id="edit-user-close">Close</button>
+                        <button type="button" (click)="saveEditUser()" [disabled]="editUserForm.invalid" class="btn btn-primary">Save changes</button>
+                    </div>
+                </ng-template>
+                <!-- End Modal edit user -->
 
 
             </div>

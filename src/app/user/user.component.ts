@@ -29,6 +29,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   uploadFileName: string;
   profileImage: File;
+  editUser: User;
+
+    currentUsername: string;
 
   constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal) { }
 
@@ -47,6 +50,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.userService.addUsersToLocalCache(data.users.content);
           this.users = data.users.content;
           this.users.forEach(user => user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', '));
+          this.users.forEach(user => user.rolesInput = user.roles.map(role => role.name));
 
           this.thePageNumber = data.page.number + 1;
           this.thePageSize = data.page.size;
@@ -116,6 +120,32 @@ export class UserComponent implements OnInit, OnDestroy {
         if (result.length === 0  || !ngForm.value.searchTerm) {
             this.users = this.userService.getUsersFromLocalCache();
         }
+    }
+
+    onEditUser(editUser: User): void {
+        this.editUser = editUser;
+        this.currentUsername = editUser.username;
+        document.getElementById('openUserEdit').click();
+    }
+
+    submitEditUser(editUserForm: NgForm): void {
+      // console.log(ngForm.value);
+      const formData = this.userService.createUserFormDate(this.currentUsername, this.editUser, this.profileImage);
+      this.subscriptions.push(this.userService.updateUser(formData).subscribe(
+          response => {
+              console.log(response);
+              document.getElementById('edit-user-close').click();
+              this.getUsers(false);
+              this.uploadFileName = null;
+              this.profileImage = null;
+              editUserForm.reset();
+              this.toastr.success(`${response.firstName} ${response.lastName} has been updated successfully!`);
+          }, error => this.toastr.error(error.error.message)
+      ));
+    }
+
+    saveEditUser(): void {
+      document.getElementById('edit-user-save').click();
     }
 
   ngOnDestroy(): void {
