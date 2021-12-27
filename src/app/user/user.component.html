@@ -56,7 +56,9 @@
                                         <button class="btn btn-outline-info" (click)="onEditUser(appUser)">
                                             <fa-icon [icon]="faEdit"></fa-icon>
                                         </button>
-                                        <button class="btn btn-outline-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                                        <button class="btn btn-outline-danger" (click)="onDeleteUser(appUser)">
+                                            <fa-icon [icon]="faTrash"></fa-icon>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

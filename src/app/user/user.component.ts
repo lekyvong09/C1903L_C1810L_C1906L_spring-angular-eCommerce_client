@@ -8,6 +8,7 @@ import {User} from '../_model/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {finalize} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
+import {CustomHttpResponse} from '../_model/custom-http-response';
 
 @Component({
   selector: 'app-user',
@@ -146,6 +147,15 @@ export class UserComponent implements OnInit, OnDestroy {
 
     saveEditUser(): void {
       document.getElementById('edit-user-save').click();
+    }
+
+    onDeleteUser(deleteUser: User): void {
+      this.subscriptions.push(this.userService.deleteUser(deleteUser.id).subscribe(
+          (response: CustomHttpResponse) => {
+              this.toastr.success(response.message);
+              this.getUsers(false);
+          }, err => this.toastr.error(err.error.message)
+      ));
     }
 
   ngOnDestroy(): void {
