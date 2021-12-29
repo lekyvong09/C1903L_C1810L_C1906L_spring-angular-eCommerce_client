@@ -17,10 +17,10 @@
                                                     <div class="col-12 col-sm-auto">
                                                         <div class="mx-auto" style="width: 120px;">
                                                             <div class="d-flex justify-content-center align-items-center rounded">
-                                                                <img class="rounded" height="135" width="135" src="{{user?.profileImageUrl}}" alt="">
+                                                                <img class="rounded" height="135" width="135" src="{{user?.profileImageUrl}}" alt="{{user?.firstName}}">
                                                             </div>
 
-
+                                                            <ngb-progressbar class="progress mt-2" [showValue]="true" type="success" [value]="progress"></ngb-progressbar>
 
                                                         </div>
                                                     </div>
@@ -32,11 +32,13 @@
                                                                 {{user?.lastLoginDateDisplay | date:'medium'}}</small></div>
                                                             <div class="mt-2">
                                                                 <button (click)="updateProfileImage()" class="btn btn-primary" type="button">
-                                                                    <i class="fa fa-fw fa-camera"></i>
+                                                                    <fa-icon [icon]="faCamera"></fa-icon>
                                                                     <span>Change Photo</span>
-
-
                                                                 </button>
+                                                                <form enctype="multipart/form-data" style="display: none;">
+                                                                    <input type="file" name="profile-image-input" id="profile-image-input" placeholder="file"
+                                                                        accept="image/*" (change)="onProfileImageChange($event); onUpdateProfileImage();">
+                                                                </form>
                                                             </div>
                                                         </div>
                                                         <div class="text-center text-sm-right">
@@ -46,7 +48,7 @@
                                                 </div>
                                                 <div class="tab-content pt-3">
                                                     <div class="tab-pane active">
-                                                        <form #profileUserForm="ngForm" (ngSubmit)="onUpdateCurrentUser(profileUserForm.value)" class="form"
+                                                        <form #profileUserForm="ngForm" (ngSubmit)="onUpdateCurrentUser(profileUserForm)" class="form"
                                                               novalidate>
                                                             <div class="row">
                                                                 <div class="col">
@@ -88,7 +90,7 @@
                                                                         <div class="col mb-3">
                                                                             <div class="form-group">
                                                                                 <label>Role</label><small>(read only)</small>
-                                                                                <select multiple name="role" required [(ngModel)]="user.rolesInput" class="form-control">
+                                                                                <select multiple name="rolesInput" required [(ngModel)]="user.rolesInput" class="form-control">
                                                                                     <option value="ROLE_USER_READ">USER_READ</option>
                                                                                     <option value="ROLE_USER_EDIT">USER_EDIT</option>
                                                                                     <option value="ROLE_USER_CREATE">USER_CREATE</option>
