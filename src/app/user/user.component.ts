@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import { faPlus, faSync, faEdit, faTrash, faUser, faLock, faUnlock, faIdBadge, faEnvelope, faShieldAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSync, faEdit, faTrash, faUser, faLock, faUnlock, faIdBadge, faEnvelope, faShieldAlt, faSignInAlt, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../_service/user.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -17,7 +17,7 @@ import {CustomHttpResponse} from '../_model/custom-http-response';
 })
 export class UserComponent implements OnInit, OnDestroy {
   faUser = faUser; faPlus = faPlus; faSync = faSync; faEdit = faEdit; faTrash = faTrash; faLock = faLock; faUnlock = faUnlock;
-  faIdBadge = faIdBadge; faEnvelope = faEnvelope; faShieldAlt = faShieldAlt; faSignInAlt = faSignInAlt
+  faIdBadge = faIdBadge; faEnvelope = faEnvelope; faShieldAlt = faShieldAlt; faSignInAlt = faSignInAlt; faRedoAlt = faRedoAlt;
 
   users: User[];
   selectedUser: User;
@@ -156,6 +156,17 @@ export class UserComponent implements OnInit, OnDestroy {
               this.getUsers(false);
           }, err => this.toastr.error(err.error.message)
       ));
+    }
+
+    onResetPassword(user: User): void {
+      this.showLoading = true;
+      this.subscriptions.push(this.userService.resetPassword(user.email)
+          .pipe(finalize(() => this.showLoading = false))
+          .subscribe(
+          (response: CustomHttpResponse) => this.toastr.success(`${response.message}`),
+          error => this.toastr.error(error.error.message)
+      ));
+
     }
 
   ngOnDestroy(): void {
