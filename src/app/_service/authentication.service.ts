@@ -69,6 +69,11 @@ export class AuthenticationService {
     localStorage.removeItem('users');
   }
 
+  checkRole(roleToCheck: string): boolean {
+    this.loadToken();
+    return (this.jwtHelper.decodeToken(this.token).authorities as Array<string>).indexOf(roleToCheck) !== -1;
+  }
+
   public getLoggedInUsername(): string {
     return this.loggedInUsername;
   }

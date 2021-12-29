@@ -9,6 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {finalize} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 import {CustomHttpResponse} from '../_model/custom-http-response';
+import {AuthenticationService} from '../_service/authentication.service';
 
 @Component({
   selector: 'app-user',
@@ -34,7 +35,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
     currentUsername: string;
 
-  constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal) { }
+  constructor(private userService: UserService, private router: Router, private toastr: ToastrService, private modalService: NgbModal,
+              public authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.thePageNumber = 1;

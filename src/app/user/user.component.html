@@ -13,7 +13,8 @@
                                 <input type="search" class="form-control mr-sm-2" placeholder="Search Users..." name="searchTerm"
                                     ngModel (ngModelChange)="searchUserWithJavascript(searchForm)">
                             </form>
-                            <button class="btn btn-info" (click)="openModal(addUserModal)" type="button">
+                            <button [hidden]="!authenticationService.checkRole('user:create')"
+                                    class="btn btn-info" (click)="openModal(addUserModal)" type="button">
                                 <fa-icon [icon]="faPlus"></fa-icon>New User
                             </button>
                         </div>
