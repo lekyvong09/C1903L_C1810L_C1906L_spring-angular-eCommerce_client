@@ -29,12 +29,13 @@ import {AuthInterceptor} from './_interceptors/auth.interceptor';
 import {UserService} from './_service/user.service';
 import {AuthenticationGuard} from './_guards/authentication.guard';
 import { ProfileComponent } from './profile/profile.component';
+import {RoleGuard} from './_guards/role.guard';
 
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },
+  { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard, RoleGuard], data: {roles: ['user:create', 'user:edit', 'user:delete']} },
   { path: 'login', component: LoginComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthenticationGuard]},
   { path: 'cart-details', component: CartDetailsComponent },
@@ -81,7 +82,8 @@ const routes: Routes = [
       AuthenticationService,
       {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
       UserService,
-      AuthenticationGuard
+      AuthenticationGuard,
+      RoleGuard
   ],
   bootstrap: [AppComponent]
 })

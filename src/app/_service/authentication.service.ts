@@ -74,6 +74,18 @@ export class AuthenticationService {
     return (this.jwtHelper.decodeToken(this.token).authorities as Array<string>).indexOf(roleToCheck) !== -1;
   }
 
+  roleMatch(allowedRole: Array<string>): boolean {
+    this.loadToken();
+    let isMatch = false;
+    const userRoles = this.jwtHelper.decodeToken(this.token).authorities as Array<string>;
+    allowedRole.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+      }
+    });
+    return isMatch;
+  }
+
   public getLoggedInUsername(): string {
     return this.loggedInUsername;
   }
