@@ -28,9 +28,11 @@ import {AuthenticationService} from './_service/authentication.service';
 import {AuthInterceptor} from './_interceptors/auth.interceptor';
 import {UserService} from './_service/user.service';
 import {AuthenticationGuard} from './_guards/authentication.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
@@ -57,7 +59,8 @@ const routes: Routes = [
     LoginComponent,
     LoginStatusComponent,
     RegisterComponent,
-    UserComponent
+    UserComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

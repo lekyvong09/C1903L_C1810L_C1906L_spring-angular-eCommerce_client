@@ -1,8 +1,13 @@
 <div class="login-status-header">
 
     <div *ngIf="authenticationService.isLoggedIn() && authenticationService.getLoggedInUsername()" class="login-status-user-info">
-        Welcome back {{ authenticationService.getLoggedInUsername() }}
+        <a routerLink="/profile" routerLinkActive="active-link" style="color: #205b8d; text-decoration: none !important">
+            {{ authenticationService.getLoggedInUsername() }}
+            <fa-icon [icon]="faUser"></fa-icon>
+        </a>
     </div>
+
+
 
     <button *ngIf="!authenticationService.isLoggedIn()" routerLink="/login" class="security-btn">Login</button>
 

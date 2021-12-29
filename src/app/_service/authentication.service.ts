@@ -28,6 +28,9 @@ export class AuthenticationService {
   }
 
   public addUserInfoToLocalCache(user: User): void {
+    user.rolesToDisplay = user.roles.map(role => role.name.substring(5)).join(', ');
+    user.rolesInput = user.roles.map(role => role.name);
+    user.authoritiesToDisplay = user.authorities.map(element => element.privilege);
     localStorage.setItem('user', JSON.stringify(user));
   }
 

@@ -19,6 +19,7 @@ export class User {
     rolesToDisplay: string;
     rolesInput: string[];
     authorities: Authority[];
+    authoritiesToDisplay: string[];
 
 
     constructor() {
