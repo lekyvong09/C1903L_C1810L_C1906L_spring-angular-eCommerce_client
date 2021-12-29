@@ -27,13 +27,14 @@ import { UserComponent } from './user/user.component';
 import {AuthenticationService} from './_service/authentication.service';
 import {AuthInterceptor} from './_interceptors/auth.interceptor';
 import {UserService} from './_service/user.service';
+import {AuthenticationGuard} from './_guards/authentication.guard';
 
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
-  { path: 'user/management', component: UserComponent },
+  { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthenticationGuard]},
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'search/:keyword', component: ProductListComponent },
@@ -76,7 +77,8 @@ const routes: Routes = [
       CheckoutService,
       AuthenticationService,
       {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-      UserService
+      UserService,
+      AuthenticationGuard
   ],
   bootstrap: [AppComponent]
 })
