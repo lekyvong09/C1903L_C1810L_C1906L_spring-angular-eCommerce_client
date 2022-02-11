@@ -30,6 +30,9 @@ import {UserService} from './_service/user.service';
 import {AuthenticationGuard} from './_guards/authentication.guard';
 import { ProfileComponent } from './profile/profile.component';
 import {RoleGuard} from './_guards/role.guard';
+import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
+// YouTube player
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 const routes: Routes = [
@@ -43,6 +46,7 @@ const routes: Routes = [
   { path: 'search/:keyword', component: ProductListComponent },
   { path: 'category/:id', component: ProductListComponent },
   { path: 'products', component: ProductListComponent },
+  { path: 'youtube', component: YoutubePlayerComponent },
   { path: '', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200
   { path: '**', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200/fewkvhbrkenvie
 ];
@@ -61,7 +65,8 @@ const routes: Routes = [
     LoginStatusComponent,
     RegisterComponent,
     UserComponent,
-    ProfileComponent
+    ProfileComponent,
+    YoutubePlayerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -73,6 +78,7 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({timeOut: 5000, positionClass: 'toast-bottom-right', preventDuplicates: true}),
+    YouTubePlayerModule,
   ],
   providers: [
       ProductService,
