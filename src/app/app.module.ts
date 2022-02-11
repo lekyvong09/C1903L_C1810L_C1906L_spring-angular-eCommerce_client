@@ -33,21 +33,38 @@ import {RoleGuard} from './_guards/role.guard';
 import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
 // YouTube player
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { AdminComponent } from './admin/admin.component';
+import { FrontEndComponent } from './front-end/front-end.component';
 
 
 const routes: Routes = [
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard] },
-  { path: 'register', component: RegisterComponent },
-  { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard, RoleGuard], data: {roles: ['user:create', 'user:edit', 'user:delete']} },
-  { path: 'login', component: LoginComponent },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthenticationGuard]},
-  { path: 'cart-details', component: CartDetailsComponent },
-  { path: 'products/:id', component: ProductDetailsComponent },
-  { path: 'search/:keyword', component: ProductListComponent },
-  { path: 'category/:id', component: ProductListComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'youtube', component: YoutubePlayerComponent },
-  { path: '', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200
+  {
+    path: '',
+    component: FrontEndComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard] },
+      { path: 'register', component: RegisterComponent },
+      { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard, RoleGuard], data: {roles: ['user:create', 'user:edit', 'user:delete']} },
+      { path: 'login', component: LoginComponent },
+      { path: 'checkout', component: CheckoutComponent, canActivate: [AuthenticationGuard]},
+      { path: 'cart-details', component: CartDetailsComponent },
+      { path: 'products/:id', component: ProductDetailsComponent },
+      { path: 'search/:keyword', component: ProductListComponent },
+      { path: 'category/:id', component: ProductListComponent },
+      { path: 'products', component: ProductListComponent },
+      { path: 'youtube', component: YoutubePlayerComponent },
+      { path: '', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200
+    ],
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      { path: 'youtube', component: YoutubePlayerComponent },
+    ],
+    canActivate: [AuthenticationGuard],
+  },
+
   { path: '**', redirectTo: '/products', pathMatch: 'full' }, // http://localhost:4200/fewkvhbrkenvie
 ];
 
@@ -66,7 +83,9 @@ const routes: Routes = [
     RegisterComponent,
     UserComponent,
     ProfileComponent,
-    YoutubePlayerComponent
+    YoutubePlayerComponent,
+    AdminComponent,
+    FrontEndComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
